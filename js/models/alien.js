@@ -32,6 +32,12 @@ define(["../constants", "./moveableObject"], (_constants, MoveableObject) => {
       this.canMoveLeft = () => {
         return this.position.x > 0
       }
+
+      this.die = () => {
+        this.requiresUpdate = true
+        this.isDying = true
+        // this.
+      }
     }
   }
 })

@@ -20,7 +20,7 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
   let shootTimeCounter = 0
   let moveTimeCounter = 0
 
-  const generateAliens = () => {
+  const prepareAliens = () => {
     for (let i = 0; i < 10; i++) {
       for (let k = 0; k < 5; k++) {
         if (k == 0) {
@@ -29,6 +29,8 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
         generateInvader(i, k)
       }
     }
+
+    // Then set the Alien Death animation here.
   }
 
   const generateInvader = (i, k) => {
@@ -151,7 +153,7 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
   return {
     aliens,
     alienInfo,
-    generateAliens,
+    prepareAliens,
     alienStep,
     destroyAlien
   }

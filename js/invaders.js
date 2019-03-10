@@ -12,7 +12,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   const { projectilesStep, projectiles } = _projectiles
   const { player } = _player
   const { gameObjects, images } = _globals
-  const { generateAliens, alienStep, alienInfo } = _aliens
+  const { prepareAliens, alienStep, alienInfo } = _aliens
   const { checkCollisions } = _collision
   const { checkIfGameOver } = _objective
   const { playBeat } = _sounds
@@ -49,6 +49,8 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
     if (object.requiresUpdate) {
       if (object.isDead) {
         object.clear()
+      } else if (object.isDying) {
+        // Do dying related things.
       } else {
         object.reDraw()
       }
@@ -109,7 +111,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
 
   const initializeGameObjects = () => {
     player.sprite = new Sprite(images.get("player"), 1, 0, 208, 128)
-    generateAliens()
+    prepareAliens()
     gameObjects.set("player", player)
   }
 
