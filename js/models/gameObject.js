@@ -10,6 +10,7 @@ define(["../canvas"], (_canvas) => {
       this.requiresUpdate = true
       this.isDead = false
       this.isDying = false
+      this.deathCount = 0
 
       this.lastPosition = { x: this.position.x, y: this.position.y }
 
@@ -52,6 +53,26 @@ define(["../canvas"], (_canvas) => {
       this.reDraw = () => {
         this.clearLastPosition()
         this.draw()
+      }
+
+      this.update = () => {
+        if (this.requiresUpdate) {
+          if (this.isDead) {
+            this.clear()
+          } else {
+            this.reDraw()
+          }
+        } else if (this.isDying) {
+          // TODO: pull '3' into constants
+          if (this.deathCount >= (this.sprite.frames - 1) * 3) {
+            this.isDead = true
+            this.isDying = false
+            this.requiresUpdate = true
+          } else if (this.deathCount % 3 == 0) {
+            this.requiresUpdate = true
+          }
+          this.deathCount++
+        }
       }
     }
   }

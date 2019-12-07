@@ -22,13 +22,13 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   let gameStarted = false
   let framesElapsedSinceBeat = 0
 
-  let fps = 30
+  const fps = 30
 
   const gameLoop = () => {
     if (!checkIfGameOver()) {
       checkCollisions()
       playMusic()
-      player.update()
+      player.checkInput()
       projectilesStep()
       alienStep()
       displayInfo()
@@ -38,22 +38,10 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   }
 
   const drawLoop = () => {
-    gameObjects.forEach((value) => animationUpdate(value))
+    gameObjects.forEach((obj) => obj.update())
 
     if (!checkIfGameOver()) {
       window.requestAnimationFrame(drawLoop)
-    }
-  }
-
-  const animationUpdate = (object) => {
-    if (object.requiresUpdate) {
-      if (object.isDead) {
-        object.clear()
-      } else if (object.isDying) {
-        // Do dying related things.
-      } else {
-        object.reDraw()
-      }
     }
   }
 

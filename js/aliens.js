@@ -1,15 +1,17 @@
-define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
+define(["./projectiles", "./constants", "./sounds", "./models", "./globals", "./config"], (
   _projectiles,
   _constants,
   _sounds,
   _models,
-  _globals
+  _globals,
+  _config
 ) => {
   const { projectiles, getNextProjectileId } = _projectiles
   const { DIRECTION } = _constants
   const { alien_death } = _sounds
   const { Alien, AlienProjectile, Sprite } = _models
   const { gameObjects, images } = _globals
+  const { DEBUG_ALIENS } = _config
 
   const aliens = []
 
@@ -65,8 +67,10 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
   }
 
   const alienStep = () => {
-    moveAliens()
-    alienFireProjectile()
+    if (!DEBUG_ALIENS) {
+      moveAliens()
+      alienFireProjectile()
+    }
   }
 
   const destroyAlien = (alien, stackIndex, index) => {

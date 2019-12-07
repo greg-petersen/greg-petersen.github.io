@@ -1,5 +1,11 @@
-define(["../constants", "./moveableObject"], (_constants, MoveableObject) => {
+define(["../constants", "./moveableObject", "../globals", "./sprite"], (
+  _constants,
+  MoveableObject,
+  _globals,
+  Sprite
+) => {
   const { DIRECTION, CANVAS_WIDTH } = _constants
+  const { images } = _globals
 
   return class Alien extends MoveableObject {
     constructor(id, x, y, width, height, sprite, direction) {
@@ -36,7 +42,8 @@ define(["../constants", "./moveableObject"], (_constants, MoveableObject) => {
       this.die = () => {
         this.requiresUpdate = true
         this.isDying = true
-        // this.
+        this.clear()
+        this.sprite = new Sprite(images.get("alienDeath"), 4, 32, 240, 112)
       }
     }
   }

@@ -16,7 +16,6 @@ define([
     constructor(id, x, y, h, w, sprite) {
       super(id, x, y, h, w, sprite)
       this.isFiring = false
-      this.deathCount = 0
 
       this.input = {
         RIGHT: false,
@@ -57,19 +56,13 @@ define([
         }
       }
 
-      this.update = () => {
-        if (this.isDying && !this.isDead) {
-          if (this.deathCount >= (this.sprite.frames - 1) * 3) {
-            this.isDead = true
-            this.isDying = false
-          } else if (this.deathCount % 3 == 0) {
-            this.requiresUpdate = true
+      this.checkInput = () => {
+        if (!this.isDead && !this.isDying) {
+          if (this.input.RIGHT && this.canMoveRight()) {
+            this.moveRight()
+          } else if (this.input.LEFT && this.canMoveLeft()) {
+            this.moveLeft()
           }
-          this.deathCount++
-        } else if (this.input.RIGHT && this.canMoveRight()) {
-          this.moveRight()
-        } else if (this.input.LEFT && this.canMoveLeft()) {
-          this.moveLeft()
         }
       }
 
