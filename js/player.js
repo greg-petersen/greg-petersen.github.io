@@ -2,7 +2,7 @@ define(["./constants", "./models"], (_constants, _models) => {
   const { CANVAS_WIDTH } = _constants
   const { Player } = _models
 
-  const player = new Player("player", 300, 650, 52, 32, null)
+  const player = new Player("player", 300, 700, 52, 32, null)
 
   const playerArea = {
     size: {
@@ -13,8 +13,7 @@ define(["./constants", "./models"], (_constants, _models) => {
       x: 0,
       y: 700
     },
-    color: "lightgreen",
-    visible: false
+    color: "lightgreen"
   }
 
   return {

@@ -1,15 +1,17 @@
-define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
+define(["./projectiles", "./constants", "./sounds", "./models", "./globals", "./config"], (
   _projectiles,
   _constants,
   _sounds,
   _models,
-  _globals
+  _globals,
+  _config
 ) => {
   const { projectiles, getNextProjectileId } = _projectiles
   const { DIRECTION } = _constants
   const { alien_death } = _sounds
   const { Alien, AlienProjectile, Sprite } = _models
   const { gameObjects, images } = _globals
+  const { DEBUG_ALIENS } = _config
 
   const aliens = []
 
@@ -20,7 +22,7 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
   let shootTimeCounter = 0
   let moveTimeCounter = 0
 
-  const generateAliens = () => {
+  const prepareAliens = () => {
     for (let i = 0; i < 10; i++) {
       for (let k = 0; k < 5; k++) {
         if (k == 0) {
@@ -29,6 +31,8 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
         generateInvader(i, k)
       }
     }
+
+    // Then set the Alien Death animation here.
   }
 
   const generateInvader = (i, k) => {
@@ -63,8 +67,10 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
   }
 
   const alienStep = () => {
-    moveAliens()
-    alienFireProjectile()
+    if (!DEBUG_ALIENS) {
+      moveAliens()
+      alienFireProjectile()
+    }
   }
 
   const destroyAlien = (alien, stackIndex, index) => {
@@ -151,7 +157,7 @@ define(["./projectiles", "./constants", "./sounds", "./models", "./globals"], (
   return {
     aliens,
     alienInfo,
-    generateAliens,
+    prepareAliens,
     alienStep,
     destroyAlien
   }

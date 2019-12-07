@@ -12,7 +12,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   const { projectilesStep, projectiles } = _projectiles
   const { player } = _player
   const { gameObjects, images } = _globals
-  const { generateAliens, alienStep, alienInfo } = _aliens
+  const { prepareAliens, alienStep, alienInfo } = _aliens
   const { checkCollisions } = _collision
   const { checkIfGameOver } = _objective
   const { playBeat } = _sounds
@@ -22,13 +22,13 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   let gameStarted = false
   let framesElapsedSinceBeat = 0
 
-  let fps = 30
+  const fps = 30
 
   const gameLoop = () => {
     if (!checkIfGameOver()) {
       checkCollisions()
       playMusic()
-      player.update()
+      player.checkInput()
       projectilesStep()
       alienStep()
       displayInfo()
@@ -38,20 +38,10 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   }
 
   const drawLoop = () => {
-    gameObjects.forEach((value) => animationUpdate(value))
+    gameObjects.forEach((obj) => obj.update())
 
     if (!checkIfGameOver()) {
       window.requestAnimationFrame(drawLoop)
-    }
-  }
-
-  const animationUpdate = (object) => {
-    if (object.requiresUpdate) {
-      if (object.isDead) {
-        object.clear()
-      } else {
-        object.reDraw()
-      }
     }
   }
 
@@ -98,6 +88,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
     imageLoaders.push(loadImage("invaderTwo", "../sprites/invaderTwo.png"))
     imageLoaders.push(loadImage("invaderThree", "../sprites/invaderThree.png"))
     imageLoaders.push(loadImage("playerDeath", "../sprites/playerDeath.png"))
+    imageLoaders.push(loadImage("alienDeath", "../sprites/alienDeath.png"))
 
     $.when.apply(null, imageLoaders).done(() => {
       gameInterval = setInterval(gameLoop, 1000 / fps)
@@ -108,7 +99,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
 
   const initializeGameObjects = () => {
     player.sprite = new Sprite(images.get("player"), 1, 0, 208, 128)
-    generateAliens()
+    prepareAliens()
     gameObjects.set("player", player)
   }
 
