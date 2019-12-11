@@ -8,21 +8,21 @@
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"
     ></script>
+    <script src="https://kit.fontawesome.com/db4b7fbe19.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script data-main="index.js" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
   </head>
 
   <body>
-    <!-- <canvas height="750" width="600" id="canvas"></canvas> -->
-    <canvas height="1500" width="1300" id="canvas"></canvas>
-    <div display="block">
-      <div>
-        <h3>Player Info</h3>
-        <span id="playerInfo"></span>
-      </div>
-      <div>
-        <h3>Settings</h3>
-        <span><button id="toggleSound">Toggle Sound</button></span>
+    <div class="container">
+      <div class="containerLeft"></div>
+      <canvas height="1500" width="1400" id="canvas"></canvas>
+      <div class="containerRight">
+        <span class="score"></span>
+        <span id="toggleSound">
+          <i id="toggledOff" class="fas fa-volume-off fa-2x"></i>
+          <i id="toggledOn" class="fas fa-volume-up fa-2x"></i>
+        </span>
       </div>
     </div>
   </body>

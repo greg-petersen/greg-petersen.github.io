@@ -1,18 +1,19 @@
-define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "./sounds", "./models", "./globals"], (
-  _player,
-  _projectiles,
-  _aliens,
-  _collision,
-  _objective,
-  _sounds,
-  _models,
-  _globals
-) => {
-  const playerInfoElement = $("#playerInfo").get(0)
+define([
+  "./player",
+  "./projectiles",
+  "./aliens",
+  "./collision",
+  "./objective",
+  "./sounds",
+  "./models",
+  "./globals",
+  "./spaceships"
+], (_player, _projectiles, _aliens, _collision, _objective, _sounds, _models, _globals, _spaceships) => {
   const { projectilesStep, projectiles } = _projectiles
   const { player } = _player
-  const { gameObjects, images } = _globals
+  const { gameObjects, images, globalState } = _globals
   const { prepareAliens, alienStep, alienInfo } = _aliens
+  const { spaceshipStep } = _spaceships
   const { checkCollisions } = _collision
   const { checkIfGameOver } = _objective
   const { playBeat } = _sounds
@@ -31,7 +32,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
       player.checkInput()
       projectilesStep()
       alienStep()
-      displayInfo()
+      spaceshipStep()
     } else {
       clearInterval(gameInterval)
     }
@@ -51,15 +52,6 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
       playBeat()
     }
     framesElapsedSinceBeat++
-  }
-
-  const displayInfo = () => {
-    let output = ""
-    output += "X: " + player.position.x
-    output += "<br> Y: " + player.position.y
-    output += "<br><br>Number of projectiles: " + projectiles.length
-    output += "<br><br>Number of aliens: " + alienInfo.alienCount
-    playerInfoElement.innerHTML = output
   }
 
   const loadImage = (id, src) => {
@@ -106,6 +98,7 @@ define(["./player", "./projectiles", "./aliens", "./collision", "./objective", "
   $(document).on("click", () => {
     if (!gameStarted) {
       gameStarted = true
+      globalState.gameInProgress = true
       setupGame()
     }
   })
