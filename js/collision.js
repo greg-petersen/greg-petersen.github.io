@@ -1,7 +1,8 @@
-define(["./player", "./aliens", "./projectiles"], (_player, _aliens, _projectiles) => {
+define(["./player", "./aliens", "./projectiles", "./config"], (_player, _aliens, _projectiles, _config) => {
   const { player, playerArea } = _player
   const { aliens, destroyAlien } = _aliens
   const { projectiles, destroyProjectile } = _projectiles
+  const { DEBUG_MODE } = _config
 
   const isCollision = (obj1, obj2) => {
     // Bounding box collision detection.
@@ -17,7 +18,7 @@ define(["./player", "./aliens", "./projectiles"], (_player, _aliens, _projectile
     aliens.forEach((alienStack, stackIndex) =>
       alienStack.forEach((alien, alienIndex) => {
         projectiles.forEach((projectile, projectileIndex) => {
-          if (isCollision(projectile, player)) {
+          if (isCollision(projectile, player) && !DEBUG_MODE) {
             player.die()
             destroyProjectile(projectile, projectileIndex)
           }
@@ -28,7 +29,7 @@ define(["./player", "./aliens", "./projectiles"], (_player, _aliens, _projectile
           }
         })
 
-        if (isCollision(alien, playerArea)) {
+        if (isCollision(alien, playerArea) && !DEBUG_MODE) {
           player.die()
         }
       })
