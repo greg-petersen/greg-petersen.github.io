@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<title>HTML Tutorial</title>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      width: 150px;
+      height: 150px;
+      border: 1px solid black;
+      text-align: center;
+      font-size: x-large;
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+  <script>
+    const listOfValues = [
+      "Someone complains about lane match-up",
+      "Someone complains about random",
+      "Patrick apologize to Brian",
+      "Someone mentions lane or jungle diff",
+      "Guys my game froze",
+      "4-0 Dragon",
+      "We need more wards",
+      "Brian forgets to change his summoners / runes",
+      "Someone forgets to ban / lock in",
+      "Greg says he's muting someone",
+      "We lose",
+      "Keith shouts really loud",
+      "Someone forgot to buy",
+      "Enemy team aces us",
+      "We lose baron with no vision",
+      "Random team member is toxic"
+    ]
+
+    let shuffle = (array) => {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
+    }
+
+    function sound(src) {
+      this.sound = document.createElement("audio");
+      this.sound.src = src;
+      this.sound.setAttribute("preload", "auto");
+      this.sound.setAttribute("controls", "none");
+
+      this.sound.style.display = "none";
+      this.sound.volume = 1;
+      document.body.appendChild(this.sound);
+      this.play = function () {
+        this.sound.play();
+      }
+      this.stop = function () {
+        this.sound.pause();
+      }
+    }
+
+    let bingoSound;
+
+    let gameBoard = [
+      [false, false, false, false],
+      [false, false, false, false],
+      [false, false, false, false],
+      [false, false, false, false]
+    ]
+
+    const randomizeList = shuffle(listOfValues).slice(0, 16);
+
+    const checkDiagonalVictory = () => {
+      return gameBoard[0][0] && gameBoard[1][1] && gameBoard[2][2] && gameBoard[3][3] ||
+        gameBoard[0][3] && gameBoard[1][2] && gameBoard[2][1] && gameBoard[3][0]
+    }
+
+    const checkHorizontalVictory = () => {
+      let hasVictory = false;
+      gameBoard.forEach(row => {
+        if (!row.includes(false)) {
+          hasVictory = true;
+        }
+      })
+      return hasVictory;
+    }
+
+    const checkVerticalVictory = () => {
+      let hasVictory = false;
+      gameBoard.forEach((x, idx) => {
+        if (!gameBoard.map(x => x[idx]).includes(false)) {
+          hasVictory = true;
+        }
+      })
+      return hasVictory;
+    }
+
+    let clickHandler = (id) => {
+      let victory = false;
+      let ele = document.getElementById(id);
+      // console.log("Clicked: ", id, ele.style.backgroundColor);
+      ele.style.backgroundColor = ele.style.backgroundColor == "powderblue" ? "pink" : "powderblue";
+      ele.style.textDecoration = ele.style.textDecoration == "line-through" ? "none" : "line-through";
+
+      let y = (id - 1) % 4;
+      let x = Math.floor((id - 1) / 4);
+
+      gameBoard[x][y] = !gameBoard[x][y];
+      // console.log({ x, y }, gameBoard[x][y]);
+
+      checkDiagonalVictory();
+
+      if (checkHorizontalVictory() || checkVerticalVictory() || checkDiagonalVictory()) {
+        raiseVictory();
+      }
+    }
+
+    const raiseVictory = () => {
+      bingoSound.play();
+      setTimeout(() => window.alert("BINGO BITCH!!!!"), 100);
+    }
+
+    let initializeElements = () => {
+      bingoSound = new sound("that_s_a_bingo.mp3");
+      randomizeList.forEach((item, currentIndex) => {
+        let td = document.getElementById(currentIndex + 1)
+        td.innerHTML = item;
+        td.style.backgroundColor = "powderblue";
+      })
+    }
+
+    // let getRow = () => {
+
+    // }
+
+    // let getTD = (id) => {
+    //   return "<td id=" + id + " onclick='clickHandler(" + id + ")'></td>"
+    // }
+
+  </script>
+</head>
+
+<body onload="initializeElements()">
+  <table style="width:600px; height: 600px; ">
+    <tr>
+      <td id=1 onclick="clickHandler(1)"></td>
+      <td id=2 onclick="clickHandler(2)"></td>
+      <td id=3 onclick="clickHandler(3)"></td>
+      <td id=4 onclick="clickHandler(4)"></td>
+    </tr>
+    <tr>
+      <td id=5 onclick="clickHandler(5)"></td>
+      <td id=6 onclick="clickHandler(6)"></td>
+      <td id=7 onclick="clickHandler(7)"></td>
+      <td id=8 onclick="clickHandler(8)"></td>
+    </tr>
+    <tr>
+      <td id=9 onclick="clickHandler(9)"></td>
+      <td id=10 onclick="clickHandler(10)"></td>
+      <td id=11 onclick="clickHandler(11)"></td>
+      <td id=12 onclick="clickHandler(12)"></td>
+    </tr>
+    <tr>
+      <td id=13 onclick="clickHandler(13)"></td>
+      <td id=14 onclick="clickHandler(14)"></td>
+      <td id=15 onclick="clickHandler(15)"></td>
+      <td id=16 onclick="clickHandler(16)"></td>
+    </tr>
+  </table>
+
+</body>
+
+</html>
