@@ -4,38 +4,67 @@
 
 <head>
   <style>
-    table {
-      position: relative;
-      border-collapse: collapse;
-      margin: auto;
-    }
-
-    td {
-      padding: 0px 5px;
-      position: relative;
-      width: 200px;
-      height: 200px;
-      border: 1px solid black;
-      text-align: center;
-      font-size: x-large;
-      cursor: pointer;
-      user-select: none;
-    }
-
     #leagueHeader {
       text-align: center;
       font: 2em sans-serif;
     }
 
     .bingoBoy {
-      width: 200px;
-      height: 200px;
-      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
       margin: auto;
+    }
+
+    #league {
+      width: 50px;
+      height: 50px;
+    }
+
+    #saltShaker {
+      width: 50px;
+      height: 50px;
+    }
+
+    #parentBox {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    #childBox {
+      display: flex;
+      align-items: center;
+    }
+
+    #grid-container {
+      margin: auto;
+      display: grid;
+      grid-template-columns: 200px 200px 200px 200px;
+      grid-template-rows: 200px 200px 200px 200px;
+      border: 1px solid black;
+      width: 800px;
+      height: 800px;
+    }
+
+    #grid-container>div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px 0px;
+      text-align: center;
+      font-size: x-large;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid black;
+    }
+
+    .grid-text {
+      padding: 0 10px;
     }
   </style>
   <script>
@@ -58,7 +87,7 @@
       "Random team member is toxic"
     ]
 
-    let shuffle = (array) => {
+    const shuffle = (array) => {
       var currentIndex = array.length, temporaryValue, randomIndex;
       while (0 !== currentIndex) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -135,13 +164,13 @@
       return hasVictory;
     }
 
-    let getPosition = (elementId) => {
+    const getPosition = (elementId) => {
       let y = (id - 1) % 4;
       let x = Math.floor((id - 1) / 4);
       return { x, y }
     }
 
-    let clickHandler = (id) => {
+    const clickHandler = (id) => {
       let victory = false;
       let ele = document.getElementById(id);
       ele.style.backgroundColor = ele.style.backgroundColor == "powderblue" ? "pink" : "powderblue";
@@ -172,45 +201,43 @@
       }, 100);
     }
 
-    let initializeElements = () => {
+    const initializeElements = () => {
       bingoSound = new sound("that_s_a_bingo.mp3");
       randomizeList.forEach((item, currentIndex) => {
-        let td = document.getElementById(currentIndex + 1)
-        td.innerHTML = item;
-        td.style.backgroundColor = "powderblue";
+        let div = document.getElementById(currentIndex + 1)
+        div.innerHTML = "<div class='grid-text'>" + item + "</div>";
+        div.style.backgroundColor = "powderblue";
       })
     }
   </script>
 </head>
 
 <body onload="initializeElements()">
-  <table style="width:800px; height: 800px; margin: auto">
-    <h1 id="leagueHeader">LEAGUE OF SALT</h1>
-    <tr>
-      <td id=1 onclick="clickHandler(1)"></td>
-      <td id=2 onclick="clickHandler(2)"></td>
-      <td id=3 onclick="clickHandler(3)"></td>
-      <td id=4 onclick="clickHandler(4)"></td>
-    </tr>
-    <tr>
-      <td id=5 onclick="clickHandler(5)"></td>
-      <td id=6 onclick="clickHandler(6)"></td>
-      <td id=7 onclick="clickHandler(7)"></td>
-      <td id=8 onclick="clickHandler(8)"></td>
-    </tr>
-    <tr>
-      <td id=9 onclick="clickHandler(9)"></td>
-      <td id=10 onclick="clickHandler(10)"></td>
-      <td id=11 onclick="clickHandler(11)"></td>
-      <td id=12 onclick="clickHandler(12)"></td>
-    </tr>
-    <tr>
-      <td id=13 onclick="clickHandler(13)"></td>
-      <td id=14 onclick="clickHandler(14)"></td>
-      <td id=15 onclick="clickHandler(15)"></td>
-      <td id=16 onclick="clickHandler(16)"></td>
-    </tr>
-  </table>
+  <div id="parentBox">
+    <div id="childBox">
+      <img id="league" src="LeagueIcon.png" />
+      <h1 id="leagueHeader">LEAGUE OF SALT</h1>
+      <img id="saltShaker" src="SaltShaker.png" />
+    </div>
+  </div>
+  <div id="grid-container">
+    <div id=1 onclick="clickHandler(1)"></div>
+    <div id=2 onclick="clickHandler(2)"></div>
+    <div id=3 onclick="clickHandler(3)"></div>
+    <div id=4 onclick="clickHandler(4)"></div>
+    <div id=5 onclick="clickHandler(5)"></div>
+    <div id=6 onclick="clickHandler(6)"></div>
+    <div id=7 onclick="clickHandler(7)"></div>
+    <div id=8 onclick="clickHandler(8)"></div>
+    <div id=9 onclick="clickHandler(9)"></div>
+    <div id=10 onclick="clickHandler(10)"></div>
+    <div id=11 onclick="clickHandler(11)"></div>
+    <div id=12 onclick="clickHandler(12)"></div>
+    <div id=13 onclick="clickHandler(13)"></div>
+    <div id=14 onclick="clickHandler(14)"></div>
+    <div id=15 onclick="clickHandler(15)"></div>
+    <div id=16 onclick="clickHandler(16)"></div>
+  </div>
 </body>
 
 </html>
