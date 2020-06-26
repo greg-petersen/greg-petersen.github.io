@@ -5,17 +5,37 @@
 <head>
   <style>
     table {
+      position: relative;
       border-collapse: collapse;
+      margin: auto;
     }
 
     td {
-      width: 150px;
-      height: 150px;
+      padding: 0px 5px;
+      position: relative;
+      width: 200px;
+      height: 200px;
       border: 1px solid black;
       text-align: center;
       font-size: x-large;
       cursor: pointer;
       user-select: none;
+    }
+
+    #leagueHeader {
+      text-align: center;
+      font: 2em sans-serif;
+    }
+
+    .bingoBoy {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
     }
   </style>
   <script>
@@ -125,7 +145,15 @@
 
     const raiseVictory = () => {
       bingoSound.play();
-      setTimeout(() => window.alert("BINGO BITCH!!!!"), 100);
+      randomizeList.forEach((item, idx) => {
+        let td = document.getElementById(idx + 1)
+        td.innerHTML = "<img class= 'bingoBoy' src='bingoBoy.gif' />";
+      })
+
+      setTimeout(() => {
+        window.alert("BINGO BITCH!!!!")
+        location.reload();
+      }, 100);
     }
 
     let initializeElements = () => {
@@ -136,20 +164,13 @@
         td.style.backgroundColor = "powderblue";
       })
     }
-
-    // let getRow = () => {
-
-    // }
-
-    // let getTD = (id) => {
-    //   return "<td id=" + id + " onclick='clickHandler(" + id + ")'></td>"
-    // }
-
   </script>
 </head>
 
 <body onload="initializeElements()">
-  <table style="width:600px; height: 600px; ">
+  <!-- <img id="bingoBoy" src="bingoBoy.gif" /> -->
+  <table style="width:800px; height: 800px; margin: auto">
+    <h1 id="leagueHeader">LEAGUE OF SALT</h1>
     <tr>
       <td id=1 onclick="clickHandler(1)"></td>
       <td id=2 onclick="clickHandler(2)"></td>
