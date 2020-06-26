@@ -96,17 +96,28 @@
       [false, false, false, false]
     ]
 
+    let winningElements = [];
+
     const randomizeList = shuffle(listOfValues).slice(0, 16);
 
     const checkDiagonalVictory = () => {
-      return gameBoard[0][0] && gameBoard[1][1] && gameBoard[2][2] && gameBoard[3][3] ||
-        gameBoard[0][3] && gameBoard[1][2] && gameBoard[2][1] && gameBoard[3][0]
+      if (gameBoard[0][0] && gameBoard[1][1] && gameBoard[2][2] && gameBoard[3][3]) {
+        winningElements = [1, 6, 11, 16]
+        return true;
+      }
+
+      if (gameBoard[0][3] && gameBoard[1][2] && gameBoard[2][1] && gameBoard[3][0]) {
+        winningElements = [4, 7, 10, 13]
+        return true;
+      }
+      return false;
     }
 
     const checkHorizontalVictory = () => {
       let hasVictory = false;
-      gameBoard.forEach(row => {
+      gameBoard.forEach((row, idx) => {
         if (!row.includes(false)) {
+          winningElements = row.map((b, i) => (idx * 4) + i + 1);
           hasVictory = true;
         }
       })
@@ -117,16 +128,22 @@
       let hasVictory = false;
       gameBoard.forEach((x, idx) => {
         if (!gameBoard.map(x => x[idx]).includes(false)) {
+          winningElements = gameBoard.map((y, z) => z * 4 + 1 + idx)
           hasVictory = true;
         }
       })
       return hasVictory;
     }
 
+    let getPosition = (elementId) => {
+      let y = (id - 1) % 4;
+      let x = Math.floor((id - 1) / 4);
+      return { x, y }
+    }
+
     let clickHandler = (id) => {
       let victory = false;
       let ele = document.getElementById(id);
-      // console.log("Clicked: ", id, ele.style.backgroundColor);
       ele.style.backgroundColor = ele.style.backgroundColor == "powderblue" ? "pink" : "powderblue";
       ele.style.textDecoration = ele.style.textDecoration == "line-through" ? "none" : "line-through";
 
@@ -134,7 +151,6 @@
       let x = Math.floor((id - 1) / 4);
 
       gameBoard[x][y] = !gameBoard[x][y];
-      // console.log({ x, y }, gameBoard[x][y]);
 
       checkDiagonalVictory();
 
@@ -145,8 +161,8 @@
 
     const raiseVictory = () => {
       bingoSound.play();
-      randomizeList.forEach((item, idx) => {
-        let td = document.getElementById(idx + 1)
+      winningElements.forEach((ele) => {
+        let td = document.getElementById(ele)
         td.innerHTML = "<img class= 'bingoBoy' src='bingoBoy.gif' />";
       })
 
@@ -168,7 +184,6 @@
 </head>
 
 <body onload="initializeElements()">
-  <!-- <img id="bingoBoy" src="bingoBoy.gif" /> -->
   <table style="width:800px; height: 800px; margin: auto">
     <h1 id="leagueHeader">LEAGUE OF SALT</h1>
     <tr>
@@ -196,7 +211,6 @@
       <td id=16 onclick="clickHandler(16)"></td>
     </tr>
   </table>
-
 </body>
 
 </html>
