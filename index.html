@@ -66,8 +66,22 @@
     .grid-text {
       padding: 0 10px;
     }
+
+    #reset-button {
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      visibility: hidden;
+    }
+
+    #reset-button>img {
+      width: 100%;
+      height: 100%;
+    }
   </style>
   <script>
+    let victory = false;
+
     const listOfValues = [
       "Someone complains about lane match-up",
       "Someone complains about random",
@@ -171,7 +185,9 @@
     }
 
     const clickHandler = (id) => {
-      let victory = false;
+      if (victory) {
+        return;
+      }
       let ele = document.getElementById(id);
       ele.style.backgroundColor = ele.style.backgroundColor == "powderblue" ? "pink" : "powderblue";
       ele.style.textDecoration = ele.style.textDecoration == "line-through" ? "none" : "line-through";
@@ -195,10 +211,9 @@
         td.innerHTML = "<img class= 'bingoBoy' src='bingoBoy.gif' />";
       })
 
-      setTimeout(() => {
-        window.alert("BINGO BITCH!!!!")
-        location.reload();
-      }, 100);
+      let resetButton = document.getElementById("reset-button")
+      resetButton.style.visibility = "visible"
+      victory = true;
     }
 
     const initializeElements = () => {
@@ -209,6 +224,10 @@
         div.style.backgroundColor = "powderblue";
       })
     }
+
+    const resetGame = () => {
+      location.reload();
+    }
   </script>
 </head>
 
@@ -218,6 +237,9 @@
       <img id="league" src="LeagueIcon.png" />
       <h1 id="leagueHeader">LEAGUE OF SALT</h1>
       <img id="saltShaker" src="SaltShaker.png" />
+      <button id="reset-button" onclick="resetGame()">
+        <img src="reloadIcon.png" />
+      </button>
     </div>
   </div>
   <div id="grid-container">
