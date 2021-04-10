@@ -44,15 +44,16 @@
     #grid-container {
       margin: auto;
       display: grid;
-      grid-template-columns: 200px 200px 200px 200px;
-      grid-template-rows: 200px 200px 200px 200px;
+      grid-template-columns: 25% 25% 25% 25%;
+      grid-template-rows: 25% 25% 25% 25%;
       border: 1px solid black;
-      width: 800px;
-      height: 800px;
+      width: 90vw;
+      height: 90vw;
     }
 
     #grid-container>div {
       display: flex;
+      position: relative;
       align-items: center;
       justify-content: center;
       padding: 0px 0px;
@@ -66,6 +67,7 @@
     .grid-text {
       padding: 0 10px;
       font-family: fantasy;
+      text-decoration: inherit;
     }
 
     #reset-button {
@@ -79,13 +81,67 @@
       width: 100%;
       height: 100%;
     }
+
+    .fishText {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 50%;
+      margin: 0;
+      left: 0;
+      z-index: 2;
+      text-decoration: inherit;
+    }
+
+    .fishImage {
+      width: 50%;
+      height: 50%;
+      position: absolute;
+      top: 0;
+      left: 25%;
+      z-index: 1;
+    }
   </style>
   <script>
     let victory = false;
 
-    const listOfValues = [
+    const shuffleList = (array) => {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+
+    const stockList = [
+      "Someone asks what runes to use",
+      "Aaron asks Keith what to build",
+      "Aaron says fuck you greg",
+      "I need a water",
+      "I'm going to back",
+      "Lane gank while oom",
+      "Failed gank",
+      "Someone asks who's jungling",
+      "Pentakill.",
       "Someone complains about lane match-up",
-      "Someone complains about random",
+      "Miss Smite",
+      "We get first blooded",
+      "Level one death",
+      "Flash fail",
+      "Whiffed Ult",
+      "Patrick says 'Fuck me'",
+      `<p class="fishText">"FRESH FISH FRESH FISH FRESH FISH"</p><img class="fishImage" src="https://i.pinimg.com/originals/5d/b2/d7/5db2d7a35fffd0b645cede6174b54a29.gif">`,
       "Patrick apologize to Brian",
       "Someone mentions lane or jungle diff",
       "Guys my game froze",
@@ -101,6 +157,8 @@
       "We lose baron with no vision",
       "Random team member is toxic"
     ]
+
+    const listOfValues = shuffleList(stockList).slice(0, 16);
 
     const shuffle = (array) => {
       var currentIndex = array.length, temporaryValue, randomIndex;
