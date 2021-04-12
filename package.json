@@ -1,0 +1,18 @@
+{
+  "name": "html5-invaders",
+  "version": "0.0.0",
+  "description": "html5 space invaders",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gregory Petersen <gregpetersen10@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "3.4.1",
+    "requirejs": "2.3.5"
+  },
+  "devDependencies": {
+    "eslint": "5.9.0"
+  }
+}
