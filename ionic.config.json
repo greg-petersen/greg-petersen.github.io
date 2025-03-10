@@ -1,0 +1,7 @@
+{
+  "name": "pregonante",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
