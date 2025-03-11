@@ -1,0 +1,48 @@
+/* For a basic circular button */
+ion-button.circle-button {
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 120px;
+  height: 120px;
+}
+
+/* To ensure the inner button is properly circular */
+ion-button.circle-button::part(native) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+}
+
+/* If using an icon inside */
+ion-button.circle-button ion-icon {
+  font-size: 40px;
+}
+
+ion-col {
+  text-align: center;
+  // display: flex;
+  // flex-direction: column;
+}
+
+ion-text {
+  font-size: 24px;
+}
+
+ion-grid {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+
+  ion-row {
+    flex: 0.5;
+  }
+
+  ion-row.time-buttons {
+    flex: 1;
+    align-items: center;
+  }
+}

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Feeding
+      Feeding Tracker
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,20 +15,53 @@
 
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col class="ion-justify-content-center">
-        <ion-button shape="round" size="large">
-          Left
+      <ion-text>Start Time:</ion-text>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-text>{{initialStartTime | date:"medium"}}</ion-text>
+    </ion-row>
+    <ion-row class=" ion-justify-content-center time-buttons">
+      <ion-col>
+        <ion-button *ngIf="!leftBoobTimerOn" id="left-boob-button" class="circle-button" shape="round" size="large"
+          (click)="startLeftBoobTimer()">
+          <ion-icon name="play-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="leftBoobTimerOn" id="left-boob-button" class="circle-button" shape="round" size="large"
+          (click)="pauseLeftBoobTimer()">
+          <ion-icon name="pause-outline"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button shape="round" size="large">
-          Right
+        <ion-button *ngIf="!rightBoobTimerOn" id="right-boob-button" class="circle-button" shape="round" size="large"
+          (click)="startRightBoobTimer()">
+          <ion-icon name="play-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="rightBoobTimerOn" id="right-boob-button" class="circle-button" shape="round" size="large"
+          (click)="pauseRightBoobTimer()">
+          <ion-icon name="pause-outline"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text>
+          {{leftBoobElapsedSeconds * 1000 | date:"mm:ss"}}
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>
+          {{rightBoobElapsedSeconds * 1000 | date:"mm:ss"}}
+        </ion-text>
+      </ion-col>
+    </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-button>Complete Feeding</ion-button>
+      <ion-text>Finish Time:</ion-text>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-text>{{endTime | date:"medium"}}</ion-text>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-button id="complete-button">Complete Feeding</ion-button>
     </ion-row>
   </ion-grid>
-
 </ion-content>
