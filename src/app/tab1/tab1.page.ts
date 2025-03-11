@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonButton } from '@ionic/angular';
 import * as moment from 'moment';
 import { interval, pipe, map, timer, timeInterval, Subscription } from 'rxjs';
+import { FeedingDataService } from '../services/feeding-data.service';
+import { v4 as uuidv4 } from 'uuid';
+import { FeedingRecord } from '../types/feeding-record';
 
 @Component({
   selector: 'app-tab1',
@@ -23,7 +26,9 @@ export class Tab1Page {
   protected leftBoobSubscription?: Subscription;
   protected rightBoobSubscription?: Subscription;
 
-  constructor() {
+  constructor(
+    private feedingService: FeedingDataService
+  ) {
   }
 
   startLeftBoobTimer(): void {
@@ -68,5 +73,19 @@ export class Tab1Page {
     if (!this.leftBoobTimerOn) {
       this.endTime = new Date();
     }
+  }
+
+  completeFeeding(): void {
+    const newFeedingRecord: FeedingRecord = {
+      id: uuidv4(),
+      startTime: this.initialStartTime ? this.initialStartTime : new Date(),
+      endTime: this.endTime ? this.endTime : new Date(),
+      leftFeedingElapsedTime: this.leftBoobElapsedSeconds,
+      rightFeedingElapsedTime: this.rightBoobElapsedSeconds
+    }
+
+    this.feedingService.insertFeedingRecord(newFeedingRecord)
+      .then(() => console.log(`Inserted new record`, newFeedingRecord))
+      .catch(err => console.error(`Failed to insert record`, err))
   }
 }

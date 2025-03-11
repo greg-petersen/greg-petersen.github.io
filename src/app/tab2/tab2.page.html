@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Feeding Records
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,18 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Feeding Records</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-item *ngFor="let record of records | async; trackBy:trackItems; first as isFirst">
+    <ion-label>
+      <p *ngIf="isFirst">Last feed started {{record.startTime | timeSince}}</p>
+      <strong>{{record.startTime | date: 'medium'}}</strong>
+      <ion-text>Left: {{record.leftFeedingElapsedTime * 1000 | date:"mm:ss"}}</ion-text>
+      <ion-text>Right: {{record.rightFeedingElapsedTime* 1000 | date:"mm:ss"}}</ion-text>
+    </ion-label>
+  </ion-item>
+
+
 </ion-content>

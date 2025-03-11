@@ -61,7 +61,7 @@
       <ion-text>{{endTime | date:"medium"}}</ion-text>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-button id="complete-button">Complete Feeding</ion-button>
+      <ion-button [disabled]="!endTime" (click)="completeFeeding()" id="complete-button">Complete Feeding</ion-button>
     </ion-row>
   </ion-grid>
 </ion-content>
