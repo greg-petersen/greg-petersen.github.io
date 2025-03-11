@@ -87,5 +87,10 @@ export class Tab1Page {
     this.feedingService.insertFeedingRecord(newFeedingRecord)
       .then(() => console.log(`Inserted new record`, newFeedingRecord))
       .catch(err => console.error(`Failed to insert record`, err))
+
+    this.initialStartTime = undefined
+    this.endTime = undefined
+    this.leftBoobElapsedSeconds = 0
+    this.rightBoobElapsedSeconds = 0
   }
 }
