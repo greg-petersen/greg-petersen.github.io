@@ -75,6 +75,13 @@ export class Tab1Page {
     }
   }
 
+  reset(): void {
+    this.initialStartTime = undefined
+    this.endTime = undefined
+    this.leftBoobElapsedSeconds = 0
+    this.rightBoobElapsedSeconds = 0
+  }
+
   completeFeeding(): void {
     const newFeedingRecord: FeedingRecord = {
       id: uuidv4(),

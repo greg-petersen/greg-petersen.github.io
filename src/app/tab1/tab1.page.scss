@@ -21,10 +21,12 @@ ion-button.circle-button ion-icon {
   font-size: 40px;
 }
 
-ion-col {
-  text-align: center;
-  // display: flex;
-  // flex-direction: column;
+ion-content {
+  ion-col {
+    text-align: center;
+    // display: flex;
+    // flex-direction: column;
+  }
 }
 
 ion-text {
@@ -38,11 +40,22 @@ ion-grid {
   flex-grow: 1;
 
   ion-row {
-    flex: 0.5;
+    flex: 0.25
   }
 
   ion-row.time-buttons {
-    flex: 1;
     align-items: center;
+
+    .pause-button {
+      // --background: 
+      opacity: .60;
+    }
+  }
+}
+
+ion-footer {
+  #reset-button {
+    align-self: flex-end;
+    --background: #cb416b;
   }
 }

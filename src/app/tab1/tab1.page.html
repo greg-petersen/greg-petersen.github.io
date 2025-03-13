@@ -22,22 +22,22 @@
     </ion-row>
     <ion-row class=" ion-justify-content-center time-buttons">
       <ion-col>
-        <ion-button *ngIf="!leftBoobTimerOn" id="left-boob-button" class="circle-button" shape="round" size="large"
+        <ion-button *ngIf="!leftBoobTimerOn" id="left-boob-button-play" class="circle-button" shape="round" size="large"
           (click)="startLeftBoobTimer()">
           <ion-icon name="play-outline"></ion-icon>
         </ion-button>
-        <ion-button *ngIf="leftBoobTimerOn" id="left-boob-button" class="circle-button" shape="round" size="large"
-          (click)="pauseLeftBoobTimer()">
+        <ion-button *ngIf="leftBoobTimerOn" id="left-boob-button-pause" class="circle-button pause-button" shape="round"
+          size="large" (click)="pauseLeftBoobTimer()">
           <ion-icon name="pause-outline"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button *ngIf="!rightBoobTimerOn" id="right-boob-button" class="circle-button" shape="round" size="large"
-          (click)="startRightBoobTimer()">
+        <ion-button *ngIf="!rightBoobTimerOn" id="right-boob-button-play" class="circle-button" shape="round"
+          size="large" (click)="startRightBoobTimer()">
           <ion-icon name="play-outline"></ion-icon>
         </ion-button>
-        <ion-button *ngIf="rightBoobTimerOn" id="right-boob-button" class="circle-button" shape="round" size="large"
-          (click)="pauseRightBoobTimer()">
+        <ion-button *ngIf="rightBoobTimerOn" id="right-boob-button-pause" class="circle-button pause-button"
+          shape="round" size="large" (click)="pauseRightBoobTimer()">
           <ion-icon name="pause-outline"></ion-icon>
         </ion-button>
       </ion-col>
@@ -60,8 +60,22 @@
     <ion-row class="ion-justify-content-center">
       <ion-text>{{endTime | date:"medium"}}</ion-text>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-button [disabled]="!endTime" (click)="completeFeeding()" id="complete-button">Complete Feeding</ion-button>
+
+  </ion-grid>
+
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <!-- <ion-row class="ion-justify-content-center"> -->
+    <ion-row>
+      <ion-col size="9" push="3">
+        <ion-button [disabled]="!endTime" (click)="completeFeeding()" id="complete-button">Complete Feeding</ion-button>
+      </ion-col>
+      <ion-col size="3">
+        <ion-button [disabled]="!endTime" (click)="reset()" id="reset-button">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
+</ion-footer>
