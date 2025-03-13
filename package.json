@@ -9,7 +9,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "gh-pages": "ionic build --prod && npx ngh --dir=www/ --cname=gregpetersen.ca"
   },
   "private": true,
   "dependencies": {
@@ -21,9 +22,11 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@angular/service-worker": "^19.0.0",
     "@capacitor/app": "7.0.0",
     "@capacitor/core": "7.0.1",
     "@capacitor/haptics": "7.0.0",
+    "@capacitor/ios": "^7.0.1",
     "@capacitor/keyboard": "7.0.0",
     "@capacitor/status-bar": "7.0.0",
     "@ionic/angular": "^8.0.0",
@@ -50,6 +53,7 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "angular-cli-ghpages": "^2.0.3",
     "eslint": "^9.16.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",
