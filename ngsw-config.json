@@ -3,10 +3,11 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "Feeding App",
+      "name": "app",
       "installMode": "prefetch",
       "resources": {
         "files": [
+          "/icons/*.png",
           "/favicon.ico",
           "/index.csr.html",
           "/index.html",
