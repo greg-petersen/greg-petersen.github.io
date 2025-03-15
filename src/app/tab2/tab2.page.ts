@@ -33,4 +33,12 @@ export class Tab2Page {
   getRecords(): Observable<FeedingRecord[]> {
     return from(this.feedingService.getFeedingRecords())
   }
+
+  deleteItem(feedingRecord: FeedingRecord): void {
+    console.log("delete item", feedingRecord)
+    this.feedingService.deleteFeedingRecord(feedingRecord.id)
+      .finally(() => {
+        this.records = this.getRecords()
+      })
+  }
 }

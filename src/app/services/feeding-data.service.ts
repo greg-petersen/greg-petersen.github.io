@@ -23,6 +23,10 @@ export class FeedingDataService {
     await this._storage?.set(feedingRecord.id, feedingRecord)
   }
 
+  public deleteFeedingRecord(id: string): Promise<void> {
+    return this._storage?.remove(id)
+  }
+
   public getFeedingRecords(): Promise<FeedingRecord[]> {
     let feedingRecords: FeedingRecord[] = []
 
