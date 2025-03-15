@@ -9,7 +9,7 @@ export class TimeSincePipe implements PipeTransform {
   transform(value: any, ...args: unknown[]): unknown {
     console.log("Time since pipe", value as Date, args)
 
-    Date.parse(value)
+    // Date.parse(value)
 
     const timeDifferenceMS = Date.now() - Date.parse(value)
 
