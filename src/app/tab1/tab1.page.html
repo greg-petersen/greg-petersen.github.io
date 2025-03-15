@@ -14,13 +14,13 @@
   </ion-header>
 
   <ion-grid>
-    <ion-row class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center time-text">
       <ion-text>Start Time:</ion-text>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center time-text">
       <ion-text>{{initialStartTime | date:"medium"}}</ion-text>
     </ion-row>
-    <ion-row class=" ion-justify-content-center time-buttons">
+    <ion-row class="ion-justify-content-center time-buttons">
       <ion-col>
         <ion-button *ngIf="!leftBoobTimerOn" id="left-boob-button-play" class="circle-button" shape="round" size="large"
           (click)="startLeftBoobTimer()">
@@ -42,7 +42,7 @@
         </ion-button>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="time-text">
       <ion-col>
         <ion-text>
           {{leftBoobElapsedSeconds * 1000 | date:"mm:ss"}}
@@ -54,10 +54,10 @@
         </ion-text>
       </ion-col>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center time-text">
       <ion-text>Finish Time:</ion-text>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center time-text">
       <ion-text>{{endTime | date:"medium"}}</ion-text>
     </ion-row>
 
@@ -68,14 +68,10 @@
   <ion-grid>
     <!-- <ion-row class="ion-justify-content-center"> -->
     <ion-row>
-      <ion-col size="9" push="3">
-        <ion-button [disabled]="!endTime" (click)="completeFeeding()" id="complete-button">Complete Feeding</ion-button>
-      </ion-col>
-      <ion-col size="3">
-        <ion-button [disabled]="!endTime" (click)="reset()" id="reset-button">
-          <ion-icon name="refresh-outline"></ion-icon>
-        </ion-button>
-      </ion-col>
+      <ion-button [disabled]="!endTime" (click)="completeFeeding()" id="complete-button">Save</ion-button>
+      <ion-button [disabled]="!endTime" (click)="reset()" id="reset-button">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
     </ion-row>
   </ion-grid>
 </ion-footer>

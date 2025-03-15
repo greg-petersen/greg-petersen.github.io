@@ -1,26 +1,3 @@
-/* For a basic circular button */
-ion-button.circle-button {
-  --border-radius: 50%;
-  --padding-start: 0;
-  --padding-end: 0;
-  width: 120px;
-  height: 120px;
-}
-
-/* To ensure the inner button is properly circular */
-ion-button.circle-button::part(native) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-}
-
-/* If using an icon inside */
-ion-button.circle-button ion-icon {
-  font-size: 40px;
-}
-
 ion-content {
   ion-col {
     text-align: center;
@@ -38,24 +15,80 @@ ion-grid {
   display: flex;
   flex-flow: column;
   flex-grow: 1;
+  justify-content: center;
 
   ion-row {
-    flex: 0.25
+    flex: 0.25;
+    text-align: center;
   }
+
+  ion-row.time-text {
+    flex: .1
+  }
+
 
   ion-row.time-buttons {
     align-items: center;
 
+    ion-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* For a basic circular button */
+    ion-button.circle-button {
+      --border-radius: 50%;
+      --padding-start: 0;
+      --padding-end: 0;
+      width: 120px;
+      height: 120px;
+    }
+
+    /* To ensure the inner button is properly circular */
+    ion-button.circle-button::part(native) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+    }
+
+    /* If using an icon inside */
+    ion-button.circle-button ion-icon {
+      font-size: 40px;
+    }
+
     .pause-button {
       // --background: 
+      width: 150px;
+      height: 150px;
       opacity: .60;
     }
   }
 }
 
 ion-footer {
+  ion-row {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+    // align-content: baseline;
+  }
+
+  #complete-button {
+    width: 10rem;
+    // align-self: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    // margin: 0 auto;
+  }
+
   #reset-button {
-    align-self: flex-end;
+    margin-left: auto;
+    margin-right: 1rem;
     --background: #cb416b;
   }
 }
