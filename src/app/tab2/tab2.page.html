@@ -14,13 +14,12 @@
   </ion-header>
 
   <ion-item-sliding *ngFor="let record of records | async; trackBy:trackItems; first as isFirst">
-
     <ion-item [button]="true">
       <ion-label>
-        <p *ngIf="isFirst">Last feed started {{record.startTime | timeSince}}</p>
+        <p class="last-feeding-text" *ngIf="isFirst">Last feed started {{record.startTime | timeSince}}</p>
         <strong>{{record.startTime | date: 'medium'}}</strong>
-        <ion-text>Left: {{record.leftFeedingElapsedTime * 1000 | date:"mm:ss"}}</ion-text>
-        <ion-text>Right: {{record.rightFeedingElapsedTime* 1000 | date:"mm:ss"}}</ion-text>
+        <p>Left: {{record.leftFeedingElapsedTime * 1000 | date:"mm:ss"}}</p>
+        <p>Right: {{record.rightFeedingElapsedTime* 1000 | date:"mm:ss"}}</p>
       </ion-label>
     </ion-item>
     <ion-item-options slot="end">
