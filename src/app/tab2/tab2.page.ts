@@ -41,4 +41,8 @@ export class Tab2Page {
         this.records = this.getRecords()
       })
   }
+
+  editItem(feedingRecord: FeedingRecord): void {
+    console.log("Item to be editted", feedingRecord)
+  }
 }
