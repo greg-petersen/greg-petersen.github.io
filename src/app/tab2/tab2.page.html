@@ -17,13 +17,13 @@
     <ion-item [button]="true">
       <ion-label>
         <p class="last-feeding-text" *ngIf="isFirst">Last feed started {{record.startTime | timeSince}}</p>
-        <strong>{{record.startTime | date: 'medium'}}</strong>
+        <strong>{{record.startTime | date: 'MMM d, y, h:mm a'}}</strong>
         <p>Left: {{record.leftFeedingElapsedTime * 1000 | date:"mm:ss"}}</p>
         <p>Right: {{record.rightFeedingElapsedTime* 1000 | date:"mm:ss"}}</p>
       </ion-label>
     </ion-item>
     <ion-item-options slot="end">
-      <ion-item-option (click)="editItem(record)" color="warning" expandable="false">
+      <ion-item-option [routerLink]="['/tabs/tab2/edit-record', record.id]" color="warning" expandable="false">
         <ion-icon slot="icon-only" name="cog-outline"></ion-icon>
       </ion-item-option>
       <ion-item-option (click)="deleteItem(record)" color="danger" expandable="false">

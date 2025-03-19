@@ -1,3 +1,117 @@
-<p>
-  edit-record works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Edit Record
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Edit Record</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid *ngIf="record">
+    <ion-row>
+      <ion-col>
+        <ion-text>
+          Start Time:
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-datetime-button datetime="datetime">
+        </ion-datetime-button>
+        <!-- <ion-text>
+          Test
+          {{record.startTime | date:'medium'}}
+        </ion-text> -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text>
+          Left:
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="editLeft()">
+          {{record.leftFeedingElapsedTime * 1000 | date:"mm:ss"}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text>
+          Right:
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>
+          {{record.rightFeedingElapsedTime * 1000 | date:"mm:ss"}}
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <ion-text>
+          Last Breast:
+        </ion-text>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row> -->
+    <ion-row class="notes">
+      <ion-col>
+        <ion-text>
+          Notes:
+        </ion-text>
+      </ion-col>
+
+      <!-- Notes section -->
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <!-- <ion-row class="ion-justify-content-center"> -->
+    <ion-row>
+      <ion-button [disabled]="!hasChanges" (click)="save()" id="save-button">Save</ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+<ion-modal [keepContentsMounted]="true" *ngIf="record">
+  <ng-template>
+    <ion-datetime id="datetime" presentation="date-time" value="{{formatDate(record.startTime)}}"></ion-datetime>
+  </ng-template>
+</ion-modal>
+<ion-modal #modal trigger="open-modal" [isOpen]="editingLeft || editingRight" (didDismiss)="onDidDismiss($event)">
+  <ng-template>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="modal.dismiss(null, 'cancel')">Cancel</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="modal.dismiss({'minutes': minutes,'seconds': seconds,'left': editingLeft}, 'confirm')">
+          Done
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-picker>
+      <ion-picker-column [value]="minutes" (ionChange)="onMinuteChange($event)">
+        <ion-picker-column-option *ngFor="let item of [].constructor(60); index as i" value="{{i}}">
+          {{i}}
+        </ion-picker-column-option>
+      </ion-picker-column>
+      <ion-picker-column [value]="seconds" (ionChange)="onSecondChange($event)">
+        <ion-picker-column-option *ngFor="let item of [].constructor(60); index as i" value="{{i}}">
+          {{i}}
+        </ion-picker-column-option>
+      </ion-picker-column>
+    </ion-picker>
+  </ng-template>
+</ion-modal>

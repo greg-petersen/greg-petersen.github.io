@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
       },
       {
+        path: 'tab2/edit-record/:record-id',
+        loadChildren: () => import('../edit-record/edit-record.module').then(m => m.EditRecordModule)
+      },
+      {
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },

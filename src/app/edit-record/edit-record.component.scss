@@ -1,0 +1,40 @@
+ion-grid {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ion-row {
+    display: flex;
+
+    flex: .25;
+    border-bottom: 1px solid lightgray;
+
+    ion-col {
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+    }
+  }
+
+  ion-row.notes {
+    flex: 1;
+    align-items: start;
+
+    ion-col {
+      padding-top: 1rem;
+    }
+
+    // ion-text {}
+  }
+}
+
+ion-modal {
+  --height: auto;
+
+  align-items: end;
+}
+
+ion-picker {
+  margin-bottom: var(--ion-safe-area-bottom);
+}

@@ -1,9 +1,8 @@
-import { Input, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
+import { from, Observable } from 'rxjs';
 import { FeedingDataService } from '../services/feeding-data.service';
-import { v4 as uuidv4 } from 'uuid';
 import { FeedingRecord } from '../types/feeding-record';
-import { Observable, of, from } from 'rxjs';
 
 @Component({
   selector: 'app-tab2',
@@ -40,9 +39,5 @@ export class Tab2Page {
       .finally(() => {
         this.records = this.getRecords()
       })
-  }
-
-  editItem(feedingRecord: FeedingRecord): void {
-    console.log("Item to be editted", feedingRecord)
   }
 }
